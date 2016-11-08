@@ -1,0 +1,25 @@
+ensyuu2@ensyuu2-VirtualBox:~/simple-router-k-sakamoto3$ ./bin/simple_router display
+destination	netmask_length	next_hop
+0.0.0.0		0		192.168.1.2
+
+ensyuu2@ensyuu2-VirtualBox:~/simple-router-k-sakamoto3$ ./bin/simple_router add 192.168.1.3 24 192.168.1.4
+ensyuu2@ensyuu2-VirtualBox:~/simple-router-k-sakamoto3$ ./bin/simple_router display
+destination	netmask_length	next_hop
+0.0.0.0		0		192.168.1.2
+192.168.1.0		24		192.168.1.4
+
+ensyuu2@ensyuu2-VirtualBox:~/simple-router-k-sakamoto3$ ./bin/simple_router delete 192.168.1.3 24
+ensyuu2@ensyuu2-VirtualBox:~/simple-router-k-sakamoto3$ ./bin/simple_router display
+destination	netmask_length	next_hop
+0.0.0.0	0	192.168.1.2
+
+ensyuu2@ensyuu2-VirtualBox:~/simple-router-k-sakamoto3$ ./bin/simple_router delete 192.168.1.5 24
+ensyuu2@ensyuu2-VirtualBox:~/simple-router-k-sakamoto3$ ./bin/simple_router display
+destination	netmask_length	next_hop
+0.0.0.0	0	192.168.1.2
+
+ensyuu2@ensyuu2-VirtualBox:~/simple-router-k-sakamoto3$ ./bin/simple_router interface
+port	mac_address		ip_address	netmask_length
+1	01:01:01:01:01:01	192.168.1.1	24
+2	02:02:02:02:02:02	192.168.2.1	24
+
