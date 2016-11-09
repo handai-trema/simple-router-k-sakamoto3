@@ -30,7 +30,7 @@
 
 以下の部分がルーティングテーブルの表示に関わっている。
 
-```
+```ruby
   include Pio
 
   desc 'Display a routing table'
@@ -50,6 +50,8 @@
     end
   end
 ```
+
+
 留意すべき行を説明する。
 
 > include Pio
@@ -92,7 +94,7 @@ destination	netmask_length	next_hop
 
 simple\_routerに以下のスクリプトを追加する。1つ目の定義がルーティングテーブルエントリの追加、2つ目の定義がルーティングテーブルエントリの削除を表す。
 
-```
+```ruby
   desc 'Add a routing entry'
   arg_name 'destination netmask_length next_hop'
   command :add do |c|
@@ -123,7 +125,7 @@ simple\_routerに以下のスクリプトを追加する。1つ目の定義が�
 
 ここでは、各コマンドを定義し、さらに引数を適切に変換して./lib/simple\_router.rbにあるメソッドに渡しているのみである。simple\_router.rbの変更点を以下に記す。
 
-```
+```ruby
   def add_routing_entry(destination, netmask_length, next_hop)
     options = {:destination => destination, :netmask_length => netmask_length, :next_hop => next_hop}
     @routing_table.add(options)
@@ -137,7 +139,7 @@ simple\_routerに以下のスクリプトを追加する。1つ目の定義が�
 
 それぞれ、optionsという連想配列に整形してrouting\_table.rbで定義されたaddメソッド、deleteメソッドに渡すことにより、それぞれの目的が達成される。routing\_table.rbの中身を以下に記載する。
 
-```
+```ruby
   def add(options)
     netmask_length = options.fetch(:netmask_length)
     prefix = IPv4Address.new(options.fetch(:destination)).mask(netmask_length)
@@ -203,7 +205,7 @@ destination	netmask_length	next_hop
 
 simple\_routerにおけるコマンド実装部分は以下となる。
 
-```
+```ruby
   desc 'Display interfaces'
   arg_name 'interface'
   command :interface do |c|
@@ -224,7 +226,7 @@ simple\_routerにおけるコマンド実装部分は以下となる。
 
 ここで、simple\_router.rbのget\_interface()メソッドを呼び出している。返り値は、各インターフェースの情報の連想配列を要素にもつ配列である。get\_interface()メソッドは以下となる。
 
-```
+```ruby
   def get_interface()
     interface_array = Array.new()
     Interface.all.each do |each|
